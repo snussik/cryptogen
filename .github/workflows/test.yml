@@ -27,9 +27,11 @@ jobs:
           echo $(go env GOPATH)
           echo $(go env GOROOT)
           echo $PATH
+      - uses: actions/checkout@v1
         with:
           go-version: ${{ matrix.go }}
       - run: go get
+      - uses: actions/checkout@v1
         with:
           go-version: ${{ matrix.go }}
       - run: go run main.go

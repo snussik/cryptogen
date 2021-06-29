@@ -15,4 +15,21 @@ jobs:
         uses: actions/setup-go@v1
         with:
           go-version: ${{ matrix.go }}
-      - run: go get && go run main.go
+      - name: Setup env
+        run: |
+          echo "::set-env name=GOPATH::$(dirname $GITHUB_WORKSPACE)"
+          echo "::add-path::$(dirname $GITHUB_WORKSPACE)/bin"
+        shell: bash
+      - uses: actions/checkout@v1
+        with:
+          ref: B8
+          path: src/github.com/${{ github.repository }}
+      - name: echo env
+        run: |
+          echo $(go env GOPATH)
+          echo $(go env GOROOT)
+          echo $PATH
+      - name: Go get
+      - run: go get
+      - name: Run Package
+      - run: go run main.go
